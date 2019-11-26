@@ -1,0 +1,39 @@
+﻿.post {
+    margin-bottom: 15px;
+}
+
+.post-sender {
+    font-size: 18px;
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.post-sender a {
+    color: #4682b4;
+}
+.post-sender a:hover {
+    color: #386699;
+}
+
+
+input[type=text] {
+    width: 500px;
+    border: 1px solid steelblue;
+    border-radius: 15px;
+    padding: 5px 10px;
+    outline: none;
+}
+
+input[type=submit] {
+    background-color: #4682b4;
+    padding: 8px 16px;
+    margin-right: 20px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    font-size: 16px;
+}
+input[type=submit]:hover {
+    background-color: #386699;
+}

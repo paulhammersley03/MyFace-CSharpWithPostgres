@@ -1,0 +1,17 @@
+﻿@model MyFace.Models.ViewModels.UserListViewModel
+@{
+    ViewBag.Title = "UserList";
+}
+
+<body>
+    <div class="limited-width-container">
+        <h1>Say Hi to all the My🙂Face users!</h1>
+        @foreach (var username in Model.ListOfUsers)
+            {
+                <p class="user-link">@Html.ActionLink($"🙂 {username}", "Index", "Wall", new {username}, new { @class = "user-link"})</p>
+            }
+    </div>
+
+</body>
+
+
