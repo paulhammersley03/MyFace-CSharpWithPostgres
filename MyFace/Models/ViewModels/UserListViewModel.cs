@@ -4,12 +4,12 @@ namespace MyFace.Models.ViewModels
 {
     public class UserListViewModel
     {
-        public string UserName { get; }
+        public string Username { get; }
         public IEnumerable<string> ListOfUsers { get; }
 
-        public UserListViewModel(string userName, IEnumerable<string> listOfUsers)
+        public UserListViewModel(string username, IEnumerable<string> listOfUsers)
         {
-            UserName = userName;
+            Username = username;
             ListOfUsers = listOfUsers;
         }
     }

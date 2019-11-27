@@ -28,7 +28,7 @@ namespace MyFace.Controllers
         [HttpPost]
         public ActionResult NewWall(WallViewModel wallViewModel)
         {
-            var username = AuthenticationHelper.ExtractUserNameAndPassword(Request).Username;
+            var username = AuthenticationHelper.ExtractUsernameAndPassword(Request).Username;
             postRepository.CreatePost(new Post() { Content = wallViewModel.NewPost, Recipient = wallViewModel.OwnerUsername, Sender = username });
             return RedirectToAction("Index", new {username= wallViewModel.OwnerUsername});
         }

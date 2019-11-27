@@ -5,12 +5,12 @@ using System.Web;
 
 namespace MyFace.Helpers
 {
-    public class UserNameAndPassword
+    public class UsernameAndPassword
     {
         public string Username { get; }
         public string Password { get; }
 
-        public UserNameAndPassword(string username, string password)
+        public UsernameAndPassword(string username, string password)
         {
             Username = username;
             Password = password;
@@ -19,14 +19,14 @@ namespace MyFace.Helpers
 
     public  static class AuthenticationHelper
     {
-        public static UserNameAndPassword ExtractUserNameAndPassword(HttpRequestBase request)
+        public static UsernameAndPassword ExtractUsernameAndPassword(HttpRequestBase request)
         {
 
             var auth = request.Headers["Authorization"];
             if (!string.IsNullOrEmpty(auth))
             {
                 var cred = System.Text.Encoding.ASCII.GetString(Convert.FromBase64String(auth.Substring(6))).Split(':');
-                return new UserNameAndPassword(cred[0], cred[1]);
+                return new UsernameAndPassword(cred[0], cred[1]);
             }
 
             return null;
