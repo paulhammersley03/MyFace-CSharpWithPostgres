@@ -13,7 +13,7 @@ namespace MyFace.Middleware
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var req = filterContext.HttpContext.Request;
-            var userNameAndPassword = AuthenticationHelper.ExtractUserNameAndPassword(req);
+            var userNameAndPassword = AuthenticationHelper.ExtractUsernameAndPassword(req);
 
             if (userNameAndPassword != null)
             {

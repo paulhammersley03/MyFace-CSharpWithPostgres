@@ -18,7 +18,7 @@ namespace MyFace.Controllers
 
         public ActionResult Index()
         {
-            var username = AuthenticationHelper.ExtractUserNameAndPassword(Request).Username;
+            var username = AuthenticationHelper.ExtractUsernameAndPassword(Request).Username;
             var allUsers = userRepository.GetAllUsers();
             var listOfUsers = new UserListViewModel(username, allUsers);
 
