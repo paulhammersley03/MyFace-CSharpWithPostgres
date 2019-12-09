@@ -23,3 +23,17 @@ When running through the installer you can keep all the default options and choo
   <add name="MyPostgres" providerName="System.Data.SqlClient" connectionString="Server=127.0.0.1;Port=5432;Database=myface;User Id=YourUserId; Password=YourPassword;" />
 </connectionStrings>
 ```
+
+## Troubleshooting
+
+If you get the following error:
+
+> Server Error in '/' Application.   
+> Could not find a part of the path 'C:\Work\Training\MyFace\MyFace\bin\roslyn\csc.exe'.   
+
+then we have hit [this issue](https://stackoverflow.com/a/34391473):
+
+* stop the project if it's running
+* right-click 'MyFace' in Solution Explorer, 'Manage NuGet Packages'
+* 'Updates', tick 'Microsoft.CodeDom.Providers.DotNetCompilerPlatform' and 'Update'
+* rebuild solution.
