@@ -1,27 +1,32 @@
 ﻿using System.Web.Mvc;
 using MyFace.DataAccess;
+using BCrypt;
 
 namespace MyFace.Controllers
 {
-public class AccountController : Controller
-{
-    private readonly IUserRepository userRepository;
-
-    public AccountController(IUserRepository userRepository)
+    public class AccountController : Controller
     {
-        this.userRepository = userRepository;
-    }
+        private readonly IUserRepository userRepository;
 
-    public ActionResult SignUp()
-    {
-        return View(new User());
-    }
+        public AccountController(IUserRepository userRepository)
+        {
+            this.userRepository = userRepository;
+        }
 
-    [HttpPost]
-    public ActionResult SignUp(User loginViewModel)
-    {
-        userRepository.SignUp(loginViewModel);
-        return RedirectToAction("Index", "UserList");
+        public ActionResult SignUp()
+        {
+            return View(new User());
+        }
+
+        [HttpPost]
+        public ActionResult SignUp(User user)
+        {
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.password);
+
+            user.password = hashedPassword;
+
+            userRepository.SignUp(user);
+            return RedirectToAction("Index", "UserList");
+        }
     }
-}
 }
