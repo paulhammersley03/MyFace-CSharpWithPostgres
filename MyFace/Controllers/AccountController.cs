@@ -28,5 +28,12 @@ namespace MyFace.Controllers
             userRepository.SignUp(user);
             return RedirectToAction("Index", "UserList");
         }
+        public ActionResult LogOff()
+        {
+            Session.Clear();
+            Session.Abandon();
+            //Redirecting to Login page after deleting Session
+            return RedirectToAction("Home/Index.cshtml");
+        }
     }
 }

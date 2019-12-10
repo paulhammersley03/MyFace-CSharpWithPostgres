@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @RenderSection("Styles", false)
     @Scripts.Render("~/bundles/modernizr")
@@ -13,15 +13,18 @@
 <body>
 <nav>
     <div class="nav-inner">
-        @Html.ActionLink($"My🙂Face", "Index", "Home", "",new { @class = "nav-link" })
+        @Html.ActionLink($"My🙂Face", "Index", "Home", "", new { @class = "nav-link" })
         @if (!string.IsNullOrEmpty(username))
         {
-            @Html.ActionLink($"Users", "Index", "UserList", "",new { @class = "nav-link" })
+            @Html.ActionLink($"Users", "Index", "UserList", "", new { @class = "nav-link" })
 
             <div class="nav-align-right">
-                @Html.ActionLink($"🙂 {username}", "Index", "Wall", new { username = username },new { @class = "nav-link" })
+                @Html.ActionLink($"🙂 {username}", "Index", "Wall", new { username = username }, new { @class = "nav-link" })
             </div>
         }
+        @Html.ActionLink("Log Out", "Index")
+
+
     </div>
 </nav>
 @RenderBody()
