@@ -21,7 +21,7 @@ namespace MyFace.Middleware
                 //TODO get password from the database.
                 var userRepository = new UserRepository();
                 userRepository.Login(userNameAndPassword.Username);
-                string thePassword = userRepository.Login(userNameAndPassword.Username);
+                string thePassword = userRepository.Login(userNameAndPassword.Username)?.password;
 
                     if (userNameAndPassword.Password == thePassword && userNameAndPassword.Password != null) return;
             }

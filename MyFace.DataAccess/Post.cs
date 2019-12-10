@@ -2,8 +2,8 @@
 {
     public class Post
     {
-        public string Sender { get; set; }
-        public string Recipient { get; set; }
-        public string Content { get; set; }
+        public string sender { get; set; }
+        public string recipient { get; set; }
+        public string post_content { get; set; }
     }
 }

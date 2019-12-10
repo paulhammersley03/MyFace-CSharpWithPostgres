@@ -11,17 +11,28 @@ namespace MyFace.Controllers
     public class WallController : Controller
     {
         private readonly IPostRepository postRepository;
+        private readonly IUserRepository userRepository;
 
-        public WallController(IPostRepository postRepository)
+
+        public WallController(IPostRepository postRepository, IUserRepository userRepository)
         {
             this.postRepository = postRepository;
+            this.userRepository = userRepository;
         }
 
-        // GET: Wall
         public ActionResult Index(string username)
         {
+            if (username == null)
+            {
+                username = AuthenticationHelper.ExtractUsernameAndPassword(request: Request)?.Username;
+            }
+            var user = userRepository.Login(username);
             var posts = postRepository.GetPostsOnWall(username);
             var viewModel = new WallViewModel(posts, username);
+
+            viewModel.firstname = user.firstname;
+            viewModel.surname = user.surname;
+
             return View(viewModel);
         }
 
@@ -29,8 +40,8 @@ namespace MyFace.Controllers
         public ActionResult NewWall(WallViewModel wallViewModel)
         {
             var username = AuthenticationHelper.ExtractUsernameAndPassword(Request).Username;
-            postRepository.CreatePost(new Post() { Content = wallViewModel.NewPost, Recipient = wallViewModel.OwnerUsername, Sender = username });
-            return RedirectToAction("Index", new {username= wallViewModel.OwnerUsername});
+            postRepository.CreatePost(new Post() { post_content = wallViewModel.NewPost, recipient = wallViewModel.OwnerUsername, sender = username });
+            return RedirectToAction("Index", new { username = wallViewModel.OwnerUsername });
         }
     }
 }

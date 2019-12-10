@@ -1,6 +1,4 @@
 ﻿using System;
-using Dapper;
-using MyFace.DataAccess;
 
 namespace MyFace.DataAccess
 {

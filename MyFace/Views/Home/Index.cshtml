@@ -2,9 +2,9 @@
     ViewBag.Title = "Home :: My🙂Face";;
 }
 
-    <div class="limited-width-container">
-        <h1>Welcome to My🙂Face</h1>
-        <!--TODO Login should redirect to a login page-->
-        @Html.ActionLink($"Login", "Index", "UserList", "", new { @class = "button" })
-        @Html.ActionLink($"SignUp", "SignUp", "Account", "", new { @class = "button" })
-    </div>
+<div class="limited-width-container">
+    <h1>Welcome to My🙂Face</h1>
+    @Html.ActionLink($"Login", "Index", "UserList", "", new { @class = "button" })
+    @Html.ActionLink($"Logout", "Log Out", "Index", "", new { @class = "button" })
+    @Html.ActionLink($"SignUp", "SignUp", "Account", "", new { @class = "button" })
+</div>

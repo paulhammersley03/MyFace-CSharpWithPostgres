@@ -2,17 +2,17 @@
 
 namespace MyFace.Models.ViewModels
 {
-    public class PostViewModel
+    public class PostViewModel:User
     {
-        public string Sender { get; }
-        public string Receiver { get; }
-        public string Content { get; }
+        public string sender { get; }
+        public string recipient { get; }
+        public string post_content { get; }
 
         public PostViewModel(Post post)
         {
-            Sender = post.Sender;
-            Receiver = post.Recipient;
-            Content = post.Content;
+            sender = post.sender;
+            recipient = post.recipient;
+            post_content = post.post_content;
         }
     }
 }

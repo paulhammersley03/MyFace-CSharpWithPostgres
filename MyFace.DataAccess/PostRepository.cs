@@ -30,7 +30,7 @@ namespace MyFace.DataAccess
         {
             using (var db = ConnectionHelper.CreateSqlConnection())
             {
-                db.Query<Post>("INSERT INTO Posts (Sender, Recipient, Content) VALUES(@Sender, @Recipient, @Content);", newPost);
+                db.Query<Post>("INSERT INTO posts (sender, recipient, post_content) VALUES(@sender, @recipient, @post_content);", newPost);
             }
         }
     }

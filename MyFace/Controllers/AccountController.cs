@@ -3,25 +3,25 @@ using MyFace.DataAccess;
 
 namespace MyFace.Controllers
 {
-    public class AccountController : Controller
+public class AccountController : Controller
+{
+    private readonly IUserRepository userRepository;
+
+    public AccountController(IUserRepository userRepository)
     {
-        private readonly IUserRepository userRepository;
-
-        public AccountController(IUserRepository userRepository)
-        {
-            this.userRepository = userRepository;
-        }
-
-        public ActionResult SignUp()
-        {
-            return View(new User());
-        }
-
-        [HttpPost]
-        public ActionResult SignUp(User loginViewModel)
-        {
-            userRepository.SignUp(loginViewModel);
-            return RedirectToAction("Index", "UserList");
-        }
+        this.userRepository = userRepository;
     }
+
+    public ActionResult SignUp()
+    {
+        return View(new User());
+    }
+
+    [HttpPost]
+    public ActionResult SignUp(User loginViewModel)
+    {
+        userRepository.SignUp(loginViewModel);
+        return RedirectToAction("Index", "UserList");
+    }
+}
 }

@@ -1,5 +1,4 @@
-﻿@using MyFace.Controllers
-@model MyFace.Models.ViewModels.WallViewModel
+﻿@model MyFace.Models.ViewModels.WallViewModel
 
 @{
     ViewBag.Title = Model.OwnerUsername + "'s Wall :: My🙂Face";
@@ -10,18 +9,18 @@
 }
 
 <div class="limited-width-container">
-    <h1>@Model.OwnerUsername's wall</h1>
+    <h1>@Model.firstname @Model.surname's wall</h1>
 
     @foreach (var post in Model.Posts)
     {
         <div class="post-sender">
-            @Html.ActionLink($"🙂 {@post.Sender}", "Index", "Wall", new { username = Model.OwnerUsername }, new { @class = "user-link" })
+            @Html.ActionLink($"🙂 {@post.sender}", "Index", "Wall", new { username = Model.OwnerUsername }, new { @class = "user-link" })
             says:
         </div>
-        @post.Content
+        @post.post_content
     }
 
-    <h1>Write something on @Model.OwnerUsername's wall!</h1>
+        <h1>Write something on @Model.firstname @Model.surname's wall!</h1>
 
 
     @using (Html.BeginForm("NewWall", "Wall", FormMethod.Post))

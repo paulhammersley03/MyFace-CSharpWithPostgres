@@ -8,6 +8,7 @@ namespace MyFace.DataAccess
     {
         IEnumerable<string> GetAllUsers();
         void SignUp(User loginViewModel);
+        User Login(string username);
     }
 
     public class UserRepository : IUserRepository
@@ -30,11 +31,11 @@ namespace MyFace.DataAccess
         }
 
 
-        public string Login(string username)
+        public User Login(string username)
         {
             using (var db = ConnectionHelper.CreateSqlConnection())
             {
-                string password = db.QueryFirstOrDefault<string>("SELECT password FROM user_account WHERE username = @username", new { username });
+                User password = db.QueryFirstOrDefault<User>("SELECT * FROM user_account WHERE username = @username", new { username });
 
                 return password;
             }
