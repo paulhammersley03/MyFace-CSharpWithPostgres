@@ -46,11 +46,7 @@ namespace MyFace.Controllers
         public ActionResult RemoveWall(WallViewModel wallViewModel)
         {
             postRepository.DeletePost(new Post { post_id = wallViewModel.post_id });
-            return RedirectToAction("Index", new { username = wallViewModel.OwnerUsername, fullname = wallViewModel.firstname + wallViewModel.surname });
-            //if user is logged in and viewing own wall - delete post_id
-            //or user is sender - delete post
-            //else - computer says no
-
+            return RedirectToAction("Index", new { username = wallViewModel.OwnerUsername });
         }
     }
 }

@@ -22,7 +22,7 @@
 
                 using (Html.BeginForm("RemoveWall", "Wall", FormMethod.Post))
                 {
-                    if (post.sender == User?.Identity?.Name)
+                    if (post.sender == User?.Identity?.Name || post.recipient == User?.Identity?.Name)
                     {
                     <input type="submit" value="Delete" class="btn btn-default" />
                     <input type="hidden" name="post_id" value="@post.post_id" />
