@@ -6,7 +6,7 @@ using MyFace.Models.ViewModels;
 
 namespace MyFace.Controllers
 {
-    [BasicAuthentication]
+    [Authorize]
     public class UserListController : Controller
     {
         private readonly IUserRepository userRepository;
@@ -18,7 +18,7 @@ namespace MyFace.Controllers
 
         public ActionResult Index()
         {
-            var username = AuthenticationHelper.ExtractUsernameAndPassword(Request).Username;
+            var username = User?.Identity?.Name;
             var allUsers = userRepository.GetAllUsers();
             var listOfUsers = new UserListViewModel(username, allUsers);
 

@@ -7,7 +7,7 @@ using MyFace.Models.ViewModels;
 
 namespace MyFace.Controllers
 {
-    [BasicAuthentication]
+    [Authorize]
     public class WallController : Controller
     {
         private readonly IPostRepository postRepository;
@@ -39,7 +39,7 @@ namespace MyFace.Controllers
         [HttpPost]
         public ActionResult NewWall(WallViewModel wallViewModel)
         {
-            var username = AuthenticationHelper.ExtractUsernameAndPassword(Request).Username;
+            var username = User?.Identity?.Name; ;
             postRepository.CreatePost(new Post() { post_content = wallViewModel.NewPost, recipient = wallViewModel.OwnerUsername, sender = username });
             return RedirectToAction("Index", new { username = wallViewModel.OwnerUsername });
         }

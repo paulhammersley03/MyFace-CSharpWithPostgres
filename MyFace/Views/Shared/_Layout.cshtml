@@ -1,9 +1,9 @@
 ﻿@using MyFace.Helpers
 <!DOCTYPE html>
 <html>
-@{ string username = AuthenticationHelper.ExtractUsernameAndPassword(request: Request)?.Username; }
+@{ string username = User?.Identity?.Name;}
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
@@ -11,22 +11,20 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-<nav>
-    <div class="nav-inner">
-        @Html.ActionLink($"My🙂Face", "Index", "Home", "", new { @class = "nav-link" })
-        @if (!string.IsNullOrEmpty(username))
-        {
-            @Html.ActionLink($"Users", "Index", "UserList", "", new { @class = "nav-link" })
+    <nav>
+        <div class="nav-inner">
+            @Html.ActionLink($"My🙂Face", "Index", "Home", "", new { @class = "nav-link" })
+            @if (!string.IsNullOrEmpty(username))
+            {
+                @Html.ActionLink($"Users", "Index", "UserList", "", new { @class = "nav-link" })
 
-            <div class="nav-align-right">
-                @Html.ActionLink($"🙂 {username}", "Index", "Wall", new { username = username }, new { @class = "nav-link" })
-            </div>
-        }
-        @Html.ActionLink("Log Out", "Index")
-
-
-    </div>
-</nav>
-@RenderBody()
+                <div class="nav-align-right">
+                    @Html.ActionLink($"🙂 {username}", "Index", "Wall", new { username = username }, new { @class = "nav-link" })
+                    @Html.ActionLink("Log Out", "LogOut", "Account", new { @class = "button"}, null)
+                </div>
+            }
+        </div>
+    </nav>
+    @RenderBody()
 </body>
 </html>
