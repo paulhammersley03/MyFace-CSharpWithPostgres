@@ -9,6 +9,7 @@ namespace MyFace.Models.ViewModels
         public IEnumerable<PostViewModel> Posts { get; set; }
         public string OwnerUsername { get; set; }
         public string NewPost { get; set; }
+        public int post_id { get; set; }
         public WallViewModel() { }
         public WallViewModel(IEnumerable<Post> posts, string ownerUsername)
         {

@@ -14,6 +14,7 @@ namespace MyFace.DataAccess
     {
         IEnumerable<Post> GetPostsOnWall(string recipient);
         void CreatePost (Post newPost);
+        void DeletePost(Post deletePost);
     }
 
     public class PostRepository : IPostRepository
@@ -31,6 +32,15 @@ namespace MyFace.DataAccess
             using (var db = ConnectionHelper.CreateSqlConnection())
             {
                 db.Query<Post>("INSERT INTO posts (sender, recipient, post_content) VALUES(@sender, @recipient, @post_content);", newPost);
+            }
+        }
+
+        public void DeletePost(Post currentPost)
+        {
+            using (var db = ConnectionHelper.CreateSqlConnection())
+            {
+                var post_id = currentPost.post_id; 
+                db.Query<Post>("DELETE FROM Posts WHERE \"post_id\" = @post_id", new { post_id });
             }
         }
     }

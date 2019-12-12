@@ -8,27 +8,37 @@
     <link href="@Url.Content("~/Content/wall.css")" rel="stylesheet" type="text/css" />
 }
 
-<div class="limited-width-container">
-    <h1>@Model.firstname @Model.surname's wall</h1>
+    <div class="limited-width-container">
+        <h1>@Model.firstname @Model.surname's wall</h1>
 
-    @foreach (var post in Model.Posts)
-    {
-        <div class="post-sender">
-            @Html.ActionLink($"🙂 {@post.sender}", "Index", "Wall", new { username = Model.OwnerUsername }, new { @class = "user-link" })
-            says:
-        </div>
-        @post.post_content
-    }
+        @foreach (var post in Model.Posts)
+        {
+            <div class="post-sender">
+                @Html.ActionLink($"🙂 {@post.sender}", "Index", "Wall", new { username = Model.OwnerUsername }, new { @class = "user-link" })
+                says:
+            </div>
+            @post.post_content
+
+
+                using (Html.BeginForm("RemoveWall", "Wall", FormMethod.Post))
+                {
+                    if (post.sender == User?.Identity?.Name)
+                    {
+                    <input type="submit" value="Delete" class="btn btn-default" />
+                    <input type="hidden" name="post_id" value="@post.post_id" />
+                    <input type="hidden" name="OwnerUsername" value="@Model.OwnerUsername" />
+                    }
+                }
+        }
 
         <h1>Write something on @Model.firstname @Model.surname's wall!</h1>
-
-
-    @using (Html.BeginForm("NewWall", "Wall", FormMethod.Post))
-    {
-        <div>
-            @Html.HiddenFor(model => model.OwnerUsername)
-            @Html.EditorFor(model => model.NewPost)
-            <input type="submit" value="Post!"/>
-        </div>
-    }
-</div>
+        
+        @using (Html.BeginForm("NewWall", "Wall", FormMethod.Post))
+        {
+            <div>
+                @Html.HiddenFor(model => model.OwnerUsername)
+                @Html.EditorFor(model => model.NewPost)
+                <input type="submit" value="Post!" />
+            </div>
+        }
+    </div>

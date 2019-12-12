@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using MyFace.DataAccess;
 using MyFace.Helpers;
-using MyFace.Middleware;
 using MyFace.Models.ViewModels;
 
 namespace MyFace.Controllers
@@ -24,7 +22,7 @@ namespace MyFace.Controllers
         {
             if (username == null)
             {
-                username = AuthenticationHelper.ExtractUsernameAndPassword(request: Request)?.Username;
+                username = User?.Identity?.Name;
             }
             var user = userRepository.Login(username);
             var posts = postRepository.GetPostsOnWall(username);
@@ -42,6 +40,17 @@ namespace MyFace.Controllers
             var username = User?.Identity?.Name; ;
             postRepository.CreatePost(new Post() { post_content = wallViewModel.NewPost, recipient = wallViewModel.OwnerUsername, sender = username });
             return RedirectToAction("Index", new { username = wallViewModel.OwnerUsername });
+        }
+
+        [HttpPost]
+        public ActionResult RemoveWall(WallViewModel wallViewModel)
+        {
+            postRepository.DeletePost(new Post { post_id = wallViewModel.post_id });
+            return RedirectToAction("Index", new { username = wallViewModel.OwnerUsername, fullname = wallViewModel.firstname + wallViewModel.surname });
+            //if user is logged in and viewing own wall - delete post_id
+            //or user is sender - delete post
+            //else - computer says no
+
         }
     }
 }
