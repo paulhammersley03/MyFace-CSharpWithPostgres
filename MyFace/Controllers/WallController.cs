@@ -2,6 +2,7 @@
 using MyFace.DataAccess;
 using MyFace.Helpers;
 using MyFace.Models.ViewModels;
+using MyFace.DataAccess;
 
 namespace MyFace.Controllers
 {
@@ -43,9 +44,31 @@ namespace MyFace.Controllers
         }
 
         [HttpPost]
+        public ActionResult NewWave(WallViewModel wallViewModel)
+        {
+            var username = User?.Identity?.Name; ;
+            postRepository.CreatePost(new Post() { post_content = wallViewModel.OwnerUsername + " sent a 👋", recipient = wallViewModel.OwnerUsername, sender = username });
+            return RedirectToAction("Index", new { username = wallViewModel.OwnerUsername });
+        }
+
+        [HttpPost]
         public ActionResult RemoveWall(WallViewModel wallViewModel)
         {
             postRepository.DeletePost(new Post { post_id = wallViewModel.post_id });
+            return RedirectToAction("Index", new { username = wallViewModel.OwnerUsername });
+        }
+
+        [HttpPost]
+        public ActionResult AddLike(WallViewModel wallViewModel)
+        {
+            postRepository.AddLike(new Post { post_id = wallViewModel.post_id });
+            return RedirectToAction("Index", new { username = wallViewModel.OwnerUsername });
+        }
+
+        [HttpPost]
+        public ActionResult AddDislike(WallViewModel wallViewModel)
+        {
+            postRepository.AddDislike(new Post { post_id = wallViewModel.post_id });
             return RedirectToAction("Index", new { username = wallViewModel.OwnerUsername });
         }
     }

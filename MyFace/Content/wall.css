@@ -25,6 +25,16 @@ input[type=text] {
     outline: none;
 }
 
+input[type=submit].iconButton {
+    background-color: white;
+    /*padding: 8px 16px;*/
+    /*margin-right: 20px;*/
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    width: 50px;
+}
+
 input[type=submit] {
     background-color: #4682b4;
     padding: 8px 16px;
@@ -50,3 +60,4 @@ input[type=submit]:hover {
     .deleteButton:hover {
         background-color: #386699;
     }
+

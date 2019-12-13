@@ -15,6 +15,8 @@ namespace MyFace.DataAccess
         IEnumerable<Post> GetPostsOnWall(string recipient);
         void CreatePost (Post newPost);
         void DeletePost(Post deletePost);
+        void AddLike(Post addLike);
+        void AddDislike(Post addDislike);
     }
 
     public class PostRepository : IPostRepository
@@ -23,7 +25,7 @@ namespace MyFace.DataAccess
         {
             using (var db = ConnectionHelper.CreateSqlConnection())
             {
-                return db.Query<Post>("SELECT * FROM Posts WHERE recipient = @recipient", new {recipient});
+                return db.Query<Post>("SELECT * FROM Posts WHERE recipient = @recipient ORDER BY post_id", new {recipient});
             }
         }
 
@@ -41,6 +43,24 @@ namespace MyFace.DataAccess
             {
                 var post_id = currentPost.post_id; 
                 db.Query<Post>("DELETE FROM Posts WHERE \"post_id\" = @post_id", new { post_id });
+            }
+        }
+
+        public void AddLike(Post currentPost)
+        {
+            using (var db = ConnectionHelper.CreateSqlConnection())
+            {
+                var post_id = currentPost.post_id;
+                db.Query<Post>("UPDATE posts SET likes = likes + 1 WHERE \"post_id\" = @post_id", new { post_id });
+            }
+        }
+
+        public void AddDislike(Post currentPost)
+        {
+            using (var db = ConnectionHelper.CreateSqlConnection())
+            {
+                var post_id = currentPost.post_id;
+                db.Query<Post>("UPDATE posts SET dislikes = dislikes + 1 WHERE \"post_id\" = @post_id", new { post_id });
             }
         }
     }

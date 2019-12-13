@@ -6,5 +6,7 @@
         public string sender { get; set; }
         public string recipient { get; set; }
         public string post_content { get; set; }
+        public int likes { get; set; }
+        public int dislikes { get; set; }
     }
 }

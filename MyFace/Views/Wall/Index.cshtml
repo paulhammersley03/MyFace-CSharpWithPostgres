@@ -19,26 +19,61 @@
             </div>
             @post.post_content
 
-
-                using (Html.BeginForm("RemoveWall", "Wall", FormMethod.Post))
-                {
-                    if (post.sender == User?.Identity?.Name || post.recipient == User?.Identity?.Name)
+        <table>
+            <tr>
+                <td>
+                    @using (Html.BeginForm("AddLike", "Wall", FormMethod.Post))//like
                     {
-                    <input type="submit" value="Delete" class="btn btn-default" />
+                        
+                        {
+                        <input type="submit" value="👍" class="iconButton" />
+                        <input type="hidden" name="post_id" value="@post.post_id" />
+                        <input type="hidden" name="OwnerUsername" value="@Model.OwnerUsername" />
+                        }
+                    }    
+                </td>
+                <td>
+
+                @using (Html.BeginForm("AddDislike", "Wall", FormMethod.Post))//unlike
+                {
+                   
+                    {
+                    <input type="submit" value="👎" class="iconButton" />
                     <input type="hidden" name="post_id" value="@post.post_id" />
                     <input type="hidden" name="OwnerUsername" value="@Model.OwnerUsername" />
                     }
                 }
+                </td>
+                <td>
+            @using (Html.BeginForm("RemoveWall", "Wall", FormMethod.Post))//delete post
+            {
+                if (post.sender == User?.Identity?.Name || post.recipient == User?.Identity?.Name)
+                {
+                    <input type="submit" value="❌" class="iconButton" />
+                    <input type="hidden" name="post_id" value="@post.post_id" />
+                    <input type="hidden" name="OwnerUsername" value="@Model.OwnerUsername" />
+                }
+            }
+                </td>
+            </tr>
+        </table>
+
         }
 
         <h1>Write something on @Model.firstname @Model.surname's wall!</h1>
-        
+    
+        <div>
         @using (Html.BeginForm("NewWall", "Wall", FormMethod.Post))
         {
-            <div>
                 @Html.HiddenFor(model => model.OwnerUsername)
                 @Html.EditorFor(model => model.NewPost)
                 <input type="submit" value="Post!" />
-            </div>
         }
+    
+        @using (Html.BeginForm("NewWave", "Wall", FormMethod.Post))
+        {
+                <input type="hidden" name="OwnerUsername" value="@Model.OwnerUsername" />
+                <input type="submit" value="👋" class="iconButton" />
+        }
+        </div>
     </div>
